@@ -50,7 +50,7 @@ export default function Arena() {
         [9.5, 1, -4.5],
         [9.5, 1, 4.5],
       ].map((pos, i) => (
-        <Box key={i} args={[1, 3, 1]} position={pos} castShadow receiveShadow>
+        <Box key={i} args={[1, 3, 1]} position={pos as [number, number, number]} castShadow receiveShadow>
           <meshStandardMaterial color="#34495e" roughness={0.3} metalness={0.5} />
         </Box>
       ))}

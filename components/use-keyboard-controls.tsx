@@ -11,6 +11,8 @@ export function useKeyboardControls() {
     block: false,
     special: false,
     dash: false,
+    forward: false,
+    backward: false,
   })
 
   const [player2Keys, setPlayer2Keys] = useState({
@@ -21,6 +23,8 @@ export function useKeyboardControls() {
     block: false,
     special: false,
     dash: false,
+    forward: false,
+    backward: false,
   })
 
   useEffect(() => {
@@ -38,7 +42,10 @@ export function useKeyboardControls() {
         setPlayer1Keys(prev => ({ ...prev, right: true }))
       }
       if (e.key === "w" || e.key === "W") {
-        setPlayer1Keys(prev => ({ ...prev, jump: true }))
+        setPlayer1Keys(prev => ({ ...prev, forward: true }))
+      }
+      if (e.key === "s" || e.key === "S") {
+        setPlayer1Keys(prev => ({ ...prev, backward: true }))
       }
       if (e.key === "q" || e.key === "Q") {
         setPlayer1Keys(prev => ({ ...prev, attack: true }))
@@ -49,8 +56,11 @@ export function useKeyboardControls() {
       if (e.key === "z" || e.key === "Z") {
         setPlayer1Keys(prev => ({ ...prev, special: true }))
       }
-      if (e.key === "s" || e.key === "S") {
+      if (e.key === "Shift" || e.key === "ShiftLeft") {
         setPlayer1Keys(prev => ({ ...prev, dash: true }))
+      }
+      if (e.key === " ") {
+        setPlayer1Keys(prev => ({ ...prev, jump: true }))
       }
 
       // Player 2 controls
@@ -66,7 +76,7 @@ export function useKeyboardControls() {
       if (e.key === "ShiftRight") {
         setPlayer2Keys(prev => ({ ...prev, attack: true }))
       }
-      if (e.key === "ShiftLeft") {
+      if (e.key === "m") {
         setPlayer2Keys(prev => ({ ...prev, block: true }))
       }
       if (e.key === "/") {
@@ -86,7 +96,10 @@ export function useKeyboardControls() {
         setPlayer1Keys(prev => ({ ...prev, right: false }))
       }
       if (e.key === "w" || e.key === "W") {
-        setPlayer1Keys(prev => ({ ...prev, jump: false }))
+        setPlayer1Keys(prev => ({ ...prev, forward: false }))
+      }
+      if (e.key === "s" || e.key === "S") {
+        setPlayer1Keys(prev => ({ ...prev, backward: false }))
       }
       if (e.key === "q" || e.key === "Q") {
         setPlayer1Keys(prev => ({ ...prev, attack: false }))
@@ -97,8 +110,11 @@ export function useKeyboardControls() {
       if (e.key === "z" || e.key === "Z") {
         setPlayer1Keys(prev => ({ ...prev, special: false }))
       }
-      if (e.key === "s" || e.key === "S") {
+      if (e.key === "Shift" || e.key === "ShiftLeft") {
         setPlayer1Keys(prev => ({ ...prev, dash: false }))
+      }
+      if (e.key === " ") {
+        setPlayer1Keys(prev => ({ ...prev, jump: false }))
       }
 
       // Player 2 controls
@@ -114,7 +130,7 @@ export function useKeyboardControls() {
       if (e.key === "ShiftRight") {
         setPlayer2Keys(prev => ({ ...prev, attack: false }))
       }
-      if (e.key === "ShiftLeft") {
+      if (e.key === "m") {
         setPlayer2Keys(prev => ({ ...prev, block: false }))
       }
       if (e.key === "/") {
@@ -134,6 +150,8 @@ export function useKeyboardControls() {
         block: false,
         special: false,
         dash: false,
+        forward: false,
+        backward: false,
       });
       setPlayer2Keys({
         left: false,
@@ -143,6 +161,8 @@ export function useKeyboardControls() {
         block: false,
         special: false,
         dash: false,
+        forward: false,
+        backward: false,
       });
     };
 
