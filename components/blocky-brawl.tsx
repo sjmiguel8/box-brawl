@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { Stats, OrbitControls } from "@react-three/drei"
 import Arena from "./arena"
+import GameArena from "./game-arena"
 import Player from "./player"
 import { PlayerState } from "./player"
 import HealthDisplay from "./health-display"
@@ -15,6 +16,7 @@ export default function BlockyBrawl() {
   const [player2Health, setPlayer2Health] = useState(100)
   const [gameOver, setGameOver] = useState(false)
   const [winner, setWinner] = useState<number | null>(null)
+  const [arenaType, setArenaType] = useState<'dojo' | 'temple' | 'arena' | 'volcano'>('dojo')
 
   // Game state
   const gameStateRef = useRef({
@@ -66,6 +68,7 @@ export default function BlockyBrawl() {
       duration: 0,
     },
     platforms: [],
+    gameEffects: [],
     lastFrameTime: 0,
   })
 
@@ -162,6 +165,7 @@ export default function BlockyBrawl() {
         duration: 0,
       },
       platforms: [],
+      gameEffects: [],
     }
   }
 
@@ -196,13 +200,20 @@ export default function BlockyBrawl() {
           shadow-camera-top={10}
           color="#e74c3c"
         />
+        {/* Add GameArena before the players so it renders under them */}
+        <GameArena 
+          gameStateRef={gameStateRef} 
+          arenaType={arenaType} 
+        />
         <Player
           playerNum={1}
           gameStateRef={gameStateRef}
           playerKeys={player1Keys}
           otherPlayerState={() => gameStateRef.current.player2}
           onHit={(damage: number) => handleDamage(2, damage)}
-          onGameEvent={handleGameEvent} color={""}        />
+          onGameEvent={handleGameEvent} 
+          color={""}        
+        />
         <Player
           playerNum={2}
           gameStateRef={gameStateRef}
@@ -232,6 +243,21 @@ export default function BlockyBrawl() {
         <div>Move: A/D | Jump: W | Attack: S | Block: Q</div>
         <div className="font-bold mb-1 mt-2">Player 2:</div>
         <div>Move: ←/→ | Jump: ↑ | Attack: ↓ | Block: Shift</div>
+      </div>
+      
+      {/* Arena selector */}
+      <div className="absolute top-4 right-4 bg-black/70 text-white p-2 rounded">
+        <div className="font-bold mb-1">Arena:</div>
+        <select 
+          className="bg-gray-800 text-white p-1 rounded"
+          value={arenaType}
+          onChange={(e) => setArenaType(e.target.value as any)}
+        >
+          <option value="dojo">Dojo</option>
+          <option value="temple">Temple</option>
+          <option value="arena">Arena</option>
+          <option value="volcano">Volcano</option>
+        </select>
       </div>
     </div>
   )

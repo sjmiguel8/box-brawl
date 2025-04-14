@@ -398,7 +398,7 @@ export default function GameArena({ gameStateRef, arenaType = 'dojo' }: GameAren
             <group key={index} position={effect.position}>
               <pointLight color="#FF4500" intensity={2} distance={3} />
               <Box args={[effect.data.size, effect.data.size, effect.data.size]}>
-                <meshBasicMaterial 
+                <meshBasicMaterial
                   color="#FF4500"
                   emissive="#FF0000"
                   emissiveIntensity={0.8}
